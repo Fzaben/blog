@@ -1,0 +1,115 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "npm: start",
+            "type": "shell",
+            "command": "npm",
+            "args": ["start"],
+            "isBackground": true,
+            "promptOnClose": false,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/client"
+            }
+        },
+        {
+            "label": "kill-port: 4001",
+            "type": "shell",
+            "command": "npx",
+            "args": ["kill-port", "4001"],
+            "promptOnClose": false,
+            "problemMatcher": []
+        },
+        {
+            "label": "Terminate All Tasks",
+            "command": "echo ${input:terminate}",
+            "type": "shell",
+            "problemMatcher": []
+        },
+        {
+            "label": "posts",
+            "command": "npm",
+            "args": ["run", "debug"],
+            "presentation": {
+                "group": "server"
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/posts"
+            }
+        },
+        {
+            "label": "comments",
+            "type": "process",
+            "command": "npm",
+            "args": ["start"],
+            "presentation": {
+                "group": "server"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/comments"
+            }
+        },
+        {
+            "label": "event-bus",
+            "command": "npm",
+            "args": ["start"],
+            "presentation": {
+                "group": "server"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/event-bus"
+            }
+        },
+        {
+            "label": "moderation",
+
+            "command": "npm",
+            "args": ["start"],
+            "presentation": {
+                "group": "server"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/moderation"
+            }
+        },
+        {
+            "label": "query",
+            "command": "npm",
+            "args": ["start"],
+            "presentation": {
+                "group": "server"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/query"
+            }
+        },
+        {
+            "label": "services",
+            "dependsOn": [
+                "posts",
+                "event-bus",
+                "comments",
+                "moderation",
+                "query"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "terminate",
+            "type": "command",
+            "command": "workbench.action.tasks.terminate",
+            "args": "terminateAll"
+        }
+    ]
+}
